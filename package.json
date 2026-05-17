@@ -1,0 +1,39 @@
+{
+  "name": "agentic-pdf-reader",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/lib.js",
+  "types": "./dist/lib.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/lib.d.ts",
+      "import": "./dist/lib.js",
+      "default": "./dist/lib.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "verify": "tsx src/verifyCli.ts",
+    "geocode": "tsx src/geocodeCli.ts",
+    "build": "tsc --outDir dist --declaration --sourceMap",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@google/genai": "^1.0.0",
+    "acorn": "^8.16.0",
+    "acorn-walk": "^8.3.5",
+    "cheerio": "^1.0.0",
+    "dotenv": "^16.4.5",
+    "pdf-to-img": "^4.2.0",
+    "quickjs-emscripten": "^0.32.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

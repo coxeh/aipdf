@@ -63,6 +63,10 @@ export type ProcessPdfOptions = {
    *   "llm-judgement": let the LLM weight narrative importance (old behaviour).
    */
   recommendStrategy?: "data-volume" | "llm-judgement";
+  /** Model for the stitch stage. Default gemini-2.5-flash-lite. */
+  stitchModel?: string;
+  /** Fallback model when the primary stitch model exhausts retries. Default gemini-2.5-flash. Set "" to disable. */
+  stitchFallbackModel?: string | null;
 };
 
 export type ProcessPdfResult = {
@@ -123,6 +127,8 @@ export async function processPdf(
       force,
       tailChars: options.tailChars,
       boilerplateMax: options.boilerplateMax,
+      model: options.stitchModel,
+      fallbackModel: options.stitchFallbackModel,
     },
   );
 

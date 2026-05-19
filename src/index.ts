@@ -11,6 +11,8 @@ type CliArgs = {
   fieldsFile: string | null;
   noConsolidate: boolean;
   noAddresses: boolean;
+  stitchModel?: string;
+  stitchFallbackModel?: string | null;
 };
 
 function printHelp() {
@@ -31,6 +33,9 @@ Options:
       --no-consolidate      Skip the table consolidation stage (row-merge +
                             column-pivot). On by default.
       --no-addresses        Skip per-group address detection stage. On by default.
+      --stitch-model <m>    Model for the stitch stage (default gemini-2.5-flash-lite).
+      --stitch-fallback <m> Fallback when stitch model fails (default gemini-2.5-flash;
+                            pass "" to disable).
   -h, --help                Show this help
 
 Environment:
@@ -97,6 +102,11 @@ function parseArgs(argv: string[]): CliArgs {
       args.noConsolidate = true;
     } else if (a === "--no-addresses") {
       args.noAddresses = true;
+    } else if (a === "--stitch-model") {
+      args.stitchModel = argv[++i];
+    } else if (a === "--stitch-fallback") {
+      const next = argv[++i] ?? "";
+      args.stitchFallbackModel = next === "" ? null : next;
     } else if (a === "--ocr-concurrency" || a === "-c") {
       const next = argv[++i];
       const n = Number(next);
@@ -140,6 +150,8 @@ async function main() {
     discoverPatterns: args.discoverPatterns,
     noConsolidate: args.noConsolidate,
     noAddresses: args.noAddresses,
+    stitchModel: args.stitchModel,
+    stitchFallbackModel: args.stitchFallbackModel,
     preferredFields,
   });
 

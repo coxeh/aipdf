@@ -3,3 +3,5 @@ out/
 .env
 .DS_Store
 *.log
+out-*
+data/

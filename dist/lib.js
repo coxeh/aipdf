@@ -39,6 +39,8 @@ export async function processPdf(pdfPath, options = {}) {
         force,
         tailChars: options.tailChars,
         boilerplateMax: options.boilerplateMax,
+        model: options.stitchModel,
+        fallbackModel: options.stitchFallbackModel,
     });
     const aggregatedHints = await aggregateHints(join(outDir, "hints"), join(outDir, "hints.json"));
     const structured = await extractStructured(stitchedHtml, join(outDir, "structured.json"), join(outDir, "extractor.mjs"), { gemini, force, hints: aggregatedHints, sandbox: options.sandbox });
